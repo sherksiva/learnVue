@@ -49,6 +49,9 @@
   .whole-item {
     width: 200vh;
     margin: 0 auto;
+    border-right: 1px solid #cccccc;
+    border-left: 1px solid #cccccc;
+    padding: 10px;
   }
   .color-red {
     color: red;
