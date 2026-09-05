@@ -2,6 +2,12 @@
 
 This template should help get you started developing with Vue 3 in Vite.
 
+## For Learing things kindly followup commit with messages
+ - initial setup and sample code
+     - [Inital setup and inital code](https://github.com/sherksiva/learnVue/commit/690bb4abb96d0cc69021fd020bea1d03c09f2ff6)
+ - class and functional code 
+     - [Class and functions](https://github.com/sherksiva/learnVue/commit/92d54925ebadce4d8081900ab5951894c017eb29)
+
 ## Recommended IDE Setup
 
 [VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
