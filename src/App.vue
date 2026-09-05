@@ -1,6 +1,7 @@
 <script setup>
   import { reactive, ref } from 'vue';
 
+  // Counter Binding with reactive
   const counter = reactive({
     count: 0
   });
@@ -24,16 +25,17 @@
   const messageClass = ref('color-red');
   const counterClass = ref('counter');
   const reflink = ref('ref-link');
+  const wholeItem = ref('whole-item');
 
 </script>
 
 <template>
-  <h1>You did it!</h1>
-  <div>
-    <!-- for class binding and reactive count, we can use the following code: -->
+  <h1>Vue JS Learning:Path</h1>
+  <div :class="wholeItem">
+    <!-- 1. for class binding and reactive count, we can use the following code: -->
     <p :class="counterClass">Reactive count with class: {{ counter.count }}</p>
     <p :class="messageClass">Ref message with message Class: {{ message }}</p>
-    <!-- Counter Increase -->
+    <!-- 2. Counter Increase function-->
     <button v-on:click="increment">Increase Count</button>
     <!-- Reference link for Vue JS Documentation -->
     <div :class="reflink">
@@ -44,6 +46,10 @@
 </template>
 
 <style scoped>
+  .whole-item {
+    width: 200vh;
+    margin: 0 auto;
+  }
   .color-red {
     color: red;
   }
