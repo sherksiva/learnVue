@@ -26,21 +26,26 @@
   const counterClass = ref('counter');
   const reflink = ref('ref-link');
   const wholeItem = ref('whole-item');
+  const borderTop = ref('border-top');
 
 </script>
 
 <template>
-  <h1>Vue JS Learning:Path</h1>
+  <h1 :style="{ textAlign: 'center' }">Vue JS Learning</h1>
   <div :class="wholeItem">
-    <!-- 1. for class binding and reactive count, we can use the following code: -->
-    <p :class="counterClass">Reactive count with class: {{ counter.count }}</p>
-    <p :class="messageClass">Ref message with message Class: {{ message }}</p>
-    <!-- 2. Counter Increase function-->
-    <button v-on:click="increment">Increase Count</button>
-    <!-- Reference link for Vue JS Documentation -->
-    <div :class="reflink">
-      Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
-      documentation
+    <!-- Class 1 -->
+    <div>
+      <h3>1. Reactive Bindings</h3>
+      <!-- 1. for class binding and reactive count, we can use the following code: -->
+      <p :class="counterClass">Reactive count with class: {{ counter.count }}</p>
+      <p :class="messageClass">Ref message with message Class: {{ message }}</p>
+      <!-- 2. Counter Increase function-->
+      <button v-on:click="increment">Increase Count</button>
+      <!-- Reference link for Vue JS Documentation -->
+      <div :class="[reflink, borderTop]">
+        Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
+        documentation
+      </div>
     </div>
   </div>
 </template>
@@ -68,5 +73,15 @@
     border-top: 1px solid #ccc;
     padding-top: 10px;
     margin-top: 10px;
+  }
+
+  .border-top {
+    border-top: 1px solid #ccc;
+  }
+
+  h3 {
+    color: #782dd2;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
   }
 </style>
