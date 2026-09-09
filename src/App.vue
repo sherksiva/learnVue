@@ -17,9 +17,28 @@
   // It will trigger with v-on:click event on the button
   function increment() {
     // update component state
-    alert('Incrementing the counter');
     counter.count++;
   }
+
+  // For Toggle function 
+  function toggleCondition () {
+    toggle.value = !toggle.value;
+  }
+
+  // For Todo Form
+  const todoList = ref([]);
+
+  function addList() {
+    if (todoInput.value.trim() !== '') {
+      todoList.value.push(todoInput.value);
+      todoInput.value = '';
+    }
+  }
+
+  function deleteTodoItem(item) {
+    todoList.value = todoList.value.filter((t) => t !== item)
+  }
+
   
   // For ClassName binding
   const messageClass = ref('color-red');
@@ -27,6 +46,12 @@
   const reflink = ref('ref-link');
   const wholeItem = ref('whole-item');
   const borderTop = ref('border-top');
+  // For input field binding
+  const input_text = ref('');
+  // For toggle value binding
+  const toggle = ref(true);
+  // For Todo input field binding
+  const todoInput = ref('');
 
 </script>
 
@@ -35,12 +60,39 @@
   <div :class="wholeItem">
     <!-- Class 1 -->
     <div>
-      <h3>1. Reactive Bindings</h3>
+      <h3>1. Reactive Bindings / Ref Bindings</h3>
       <!-- 1. for class binding and reactive count, we can use the following code: -->
       <p :class="counterClass">Reactive count with class: {{ counter.count }}</p>
       <p :class="messageClass">Ref message with message Class: {{ message }}</p>
       <!-- 2. Counter Increase function-->
       <button v-on:click="increment">Increase Count</button>
+
+      <h3>2. Form Bindings</h3>
+      <input type="text" v-model="input_text" placeholder="Type something..." />
+      <p>Input Message: {{ input_text }}</p>
+
+      <h3>3. Conditional Rendering</h3>
+      <button @click="toggleCondition">Toggle</button>
+      <h5 v-if="toggle">Initial Hi</h5>
+      <h5 v-else>Toggle hi</h5>
+      <!-- We can write what ever div, etc for v-else for sample-->
+        <!-- <div v-else >
+          <div>
+            <h5>Toggle Hi</h5>
+          </div>
+        </div> -->
+
+      <h3>5. Todo Form</h3>
+
+      <form @submit.prevent="addList">
+        <input type="text" v-model="todoInput" placeholder="Add a todo item..." />
+        <button type="submit">Add</button>
+        <ul>
+          <li v-for="(item, index) in todoList" :key="index">{{ item }} <button @click="deleteTodoItem(item)">x</button></li>
+        </ul>
+        <span v-if="todoList.length === 0">No todo items yet.</span>
+      </form>
+
       <!-- Reference link for Vue JS Documentation -->
       <div :class="[reflink, borderTop]">
         Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
