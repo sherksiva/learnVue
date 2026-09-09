@@ -7,6 +7,8 @@ This template should help get you started developing with Vue 3 in Vite.
      - [Inital setup and inital code](https://github.com/sherksiva/learnVue/commit/690bb4abb96d0cc69021fd020bea1d03c09f2ff6)
  - class and functional code 
      - [Class and functions](https://github.com/sherksiva/learnVue/commit/92d54925ebadce4d8081900ab5951894c017eb29)
+ - Form bindings and toDo sample
+     - [Form Bindings and toDo Sample](https://github.com/sherksiva/learnVue/commit/0a9dd3ce8bcfac0ca1fb4fdf5404543440f29769)
 
 ## Recommended IDE Setup
 
