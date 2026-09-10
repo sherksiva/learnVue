@@ -1,5 +1,6 @@
 <script setup>
-  import { reactive, ref } from 'vue';
+  import { reactive, ref, onMounted, watch } from 'vue';
+  import Child from './Child.vue';
 
   // Counter Binding with reactive
   const counter = reactive({
@@ -39,6 +40,33 @@
     todoList.value = todoList.value.filter((t) => t !== item)
   }
 
+  // For onMounted lifecycle hook
+  onMounted(() => {
+    alert('Component mounted');
+  });
+
+    // For watchers
+  const todoId = ref(1);
+  const todoData = ref(null);
+
+  // For watchers
+  watch(todoId, async (newId) => {
+    todoData.value = null; // Reset todoData before fetching new data
+    try {
+      const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${newId}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      todoData.value = data;
+    } catch (error) {
+      console.error('Error fetching todo data:', error);
+    }
+  }, { immediate: true });
+
+  // parent to child communication
+  const parentMessage = ref('Message from Parent Component');
+
   
   // For ClassName binding
   const messageClass = ref('color-red');
@@ -52,6 +80,8 @@
   const toggle = ref(true);
   // For Todo input field binding
   const todoInput = ref('');
+  // Child message binding
+  const childMessage = ref('Message from Parent Component');
 
 </script>
 
@@ -93,6 +123,33 @@
         <span v-if="todoList.length === 0">No todo items yet.</span>
       </form>
 
+      <h3>6. Lifecycle Hooks</h3>
+      <p>Check the alert message when the component is mounted.</p>
+
+      <!-- Watchers are used to perform actions in response to changes in reactive data. 
+       In this example, we watch the `todoId` variable and fetch new todo data whenever it changes. 
+       The fetched data is displayed below the button, and a loading message is shown while the data is being fetched. -->
+      <h3>7. Watchers</h3>
+      <div>
+        <p>Todo id: {{ todoId }}</p>
+        <button @click="todoId++" :disabled="!todoData">Fetch next todo</button>
+        <p v-if="!todoData">Loading...</p>
+        <pre v-else>{{ todoData }}</pre>
+      </div>
+
+      <!-- Child Component Communication -->
+      <h3>8. Child Components</h3>
+      <Child />
+
+      <!-- Parent to Child Communication -->
+      <h3>9. Parent to Child Communication</h3>
+      <Child :msg="parentMessage" />
+
+      <!-- Child to Parent Communication -->
+      <h3>10. Child to Parent Communication</h3>
+      <Child @response="(msg) => childMsg = msg" />
+      <p>{{ childMsg }}</p>
+
       <!-- Reference link for Vue JS Documentation -->
       <div :class="[reflink, borderTop]">
         Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
@@ -104,7 +161,7 @@
 
 <style scoped>
   .whole-item {
-    width: 200vh;
+    width: 150vh;
     margin: 0 auto;
     border-right: 1px solid #cccccc;
     border-left: 1px solid #cccccc;
@@ -123,8 +180,13 @@
   .ref-link {
     font-size: 18px;
     border-top: 1px solid #ccc;
-    padding-top: 10px;
-    margin-top: 10px;
+    /* padding-top: 10px; */
+    /* margin-top: 10px; */
+
+    position: fixed;
+    bottom: 0;
+    background: #d2cece;
+    text-align: center;
   }
 
   .border-top {
@@ -135,5 +197,7 @@
     color: #782dd2;
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
   }
 </style>
